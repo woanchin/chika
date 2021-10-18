@@ -42,7 +42,7 @@ export default function Home({ allPostsData }) {
           maxWidth="700px"
         >
           <Heading mb={1} mt={4}>
-            Hello! I'm Chika
+            Hello! Chika here
           </Heading>
           <Text color={colorSecondary[colorMode]}>
             Meowmeow! Meow meow meow Chika~ Meow meow meow meow :) (This is
