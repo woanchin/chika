@@ -1,15 +1,22 @@
-import { useColorMode, Heading, Button, Flex, Box } from "@chakra-ui/react";
+import {
+  useColorMode,
+  Heading,
+  Button,
+  Flex,
+  Box,
+  Stack,
+} from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
 import Head from "next/head";
 import Image from "next/image";
-import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
+import { Link as ChakraLink } from "@chakra-ui/react";
 import DarkModeSwitch from "./darkModeSwitch";
 
 const name = "Chika";
-export const siteTitle = "Next.js Sample Website";
+export const siteTitle = "Chika";
 
 export default function Layout({ children, home }) {
   const { colorMode } = useColorMode();
@@ -37,7 +44,12 @@ export default function Layout({ children, home }) {
     `;
 
   return (
-    <div className={styles.container}>
+    <Stack
+      justifyContent="center"
+      m="0 auto 4rem auto"
+      maxWidth="800px"
+      w="100%"
+    >
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -60,7 +72,7 @@ export default function Layout({ children, home }) {
         width="100%"
         bg={bgColor[colorMode]}
         as="nav"
-        px={[2, 6, 6]}
+        px={[2, 6, 0]}
         py={2}
         mt={8}
         mb={[0, 0, 8]}
@@ -87,11 +99,21 @@ export default function Layout({ children, home }) {
               Portfolio
             </Button>
           </Link>
+          <Link href="/blog" passHref>
+            <Button
+              as="a"
+              variant="ghost"
+              p={[1, 2, 4]}
+              _hover={{ backgroundColor: navHoverBg[colorMode] }}
+            >
+              Blog
+            </Button>
+          </Link>
         </Box>
 
         <DarkModeSwitch />
       </StickNav>
-      <header className={styles.header}>
+      <Flex as="header" flexDirection="column" alignItems="center">
         {home ? (
           <>
             <Image
@@ -104,22 +126,9 @@ export default function Layout({ children, home }) {
             />
           </>
         ) : (
-          <>
-            <Link href="/">
-              <a>
-                <Image
-                  priority
-                  src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
-                  height={144}
-                  width={144}
-                  alt={name}
-                />
-              </a>
-            </Link>
-          </>
+          <></>
         )}
-      </header>
+      </Flex>
       <Flex
         as="main"
         flexDirection="column"
@@ -129,13 +138,13 @@ export default function Layout({ children, home }) {
       >
         <main>{children}</main>
       </Flex>
-      {!home && (
-        <div className={styles.backToHome}>
+      <Flex>
+        {!home && (
           <Link href="/">
-            <a>← Back to home</a>
+            <ChakraLink color={color[colorMode]}>← Back to home</ChakraLink>
           </Link>
-        </div>
-      )}
-    </div>
+        )}
+      </Flex>
+    </Stack>
   );
 }

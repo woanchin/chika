@@ -1,52 +1,47 @@
-.heading2X1 {
-    font-size: 2.5rem;
-    line-height: 1.2;
-    font-weight: 800;
-    letter-spacing: -0.05rem;
-    margin: 1rem 0;
-}
-
-.headingX1 {
-    font-sizee: 2rem;
-    line-height: 1.3;
-    font-weight: 800;
-    letter-spacing: -0.05rem;
-    margin: 1rem 0;
-}
-
-.headingLg {
-    font-size: 1.5rem;
-    line-height: 1.4;
-    margin: 1rem 0;
-}
-
-.headingMd {
-    font-size: 1.2rem;
-    line-height: 1.5;
-}
-
 .borderCircle {
-    border-radius: 9999px;
+  border-radius: 9999px;
 }
 
 .colorInherit {
-    color: inherit;
-}
-
-.padding1px {
-    padding-top: 1px;
-}
-
-.list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.listItem {
-    margin: 0 0 1.25rem;
+  color: inherit;
 }
 
 .lightText {
-    color: #666;
+  color: #666;
+}
+
+/* DEMO-SPECIFIC STYLES from Geoff Graham */
+.typewriter h1 {
+  color: inherit;
+  font-family: monospace;
+  font-size: 24px;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 0.15em solid blue; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 10px 0px; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 3.5s steps(30, end), blink-caret 1s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    color: inherit;
+    width: 0;
+  }
+  to {
+    color: inherit;
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: blue;
+  }
 }
