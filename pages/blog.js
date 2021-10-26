@@ -21,7 +21,7 @@ export default function Blog({ posts }) {
   return (
     <>
       <Head>
-        <title>Chika's Blog</title>
+        <title>Chika&apos;s Blog</title>
       </Head>
       <Layout>
         <Stack

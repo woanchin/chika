@@ -31,13 +31,13 @@ const CustomLink = (props) => {
 
   if (isInternalLink) {
     return (
-      <NextLink href={href} passHref>
-        <Link color={color[colorMode]} {...props} />
-      </NextLink>
+      <Link href={href} passHref>
+        <ChakraLink color={color[colorMode]} {...props} />
+      </Link>
     );
   }
 
-  return <Link color={color[colorMode]} isExternal {...props} />;
+  return <ChakraLink color={color[colorMode]} isExternal {...props} />;
 };
 
 const Quote = (props) => {

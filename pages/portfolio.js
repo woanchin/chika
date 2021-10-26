@@ -56,7 +56,7 @@ export default function Portfolio() {
             application.
           </Text>
         </Flex>
-        <Heading size="lg">Technologies I've used</Heading>
+        <Heading size="lg">Technologies I&apos;ve used</Heading>
         <HStack
           flexDirection="row"
           justifyContent="flex-start"
