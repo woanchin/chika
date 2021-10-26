@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { Link as ChakraLink, List, ListItem } from "@chakra-ui/react";
 import Date from "../components/date";
-import Layout, { siteTitle } from "../components/layout";
+import Layout, { siteTitle } from "../components/Layout";
 import { getSortedPostsData } from "../lib/posts";
 import utilStyles from "../styles/utils.module.css";
 import { useColorMode, Heading, Text, Flex, Stack } from "@chakra-ui/react";

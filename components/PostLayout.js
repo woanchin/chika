@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-import Layout from "./layout";
+import Layout from "./Layout";
 
 export default function PostLayout({ children, frontMatter }) {
   const { colorMode } = useColorMode();

@@ -1,5 +1,5 @@
 import { useColorMode } from "@chakra-ui/color-mode";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import Head from "next/head";
 import Link from "next/link";
 import {
