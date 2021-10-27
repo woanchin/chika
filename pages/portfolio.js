@@ -12,7 +12,7 @@ import {
   Spacer,
   Heading,
 } from "@chakra-ui/react";
-import { SiCouchbase, SiScala, SiTeamcity } from "react-icons/si";
+import { SiCouchbase, SiScala, SiTeamcity, SiKotlin } from "react-icons/si";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import React from "react";
 
@@ -21,6 +21,10 @@ export default function Portfolio() {
   const colorSecondary = {
     light: "gray.700",
     dark: "gray.400",
+  };
+  const colorTertiary = {
+    light: "blue.700",
+    dark: "blue.400",
   };
   const navHoverBg = {
     light: "gray.600",
@@ -49,11 +53,19 @@ export default function Portfolio() {
             2018 - Current
           </Heading>
           <Text color={colorSecondary[colorMode]}>
-            Software Developer at Equities Team. Created a new API capable of
-            returning PDFs, allowing clients to fetch financial documents
-            quickly. It has processed over 100 request in a day. Started out as
-            a HTTP4s stack and then migrated into Play Framework web
-            application.
+            Software Developer at Equities Team in Singapore. Created a new API
+            capable of returning PDFs, allowing clients to fetch financial
+            documents quickly. It has processed over 100 request in a day.
+            Started out as a HTTP4s stack and then migrated into Play Framework
+            web application to standardise with the rest of the team. It has a
+            swagger interface and the logs are monitored with the ELK stack. The
+            application is then deployed using Teamcity and UDeploy.
+          </Text>
+          <Text color={colorTertiary[colorMode]}>
+            Picked up Kotlin on the job in order to build a microservice that
+            enhances JSON objects flowing into other downstream Kotlin
+            microservices. No Framework is involved, just a very simple MVC
+            based model that gets the job done.
           </Text>
         </Flex>
         <Heading size="lg">Technologies I&apos;ve used</Heading>
@@ -77,7 +89,7 @@ export default function Portfolio() {
           <Box>
             <Link href="https://www.jetbrains.com/teamcity/" passHref>
               <IconButton
-                aria-label="Teamcity"
+                aria-label="Couchbase"
                 icon={<SiCouchbase />}
                 color={iconColor[colorMode]}
               />
@@ -88,6 +100,15 @@ export default function Portfolio() {
               <IconButton
                 aria-label="Teamcity"
                 icon={<SiTeamcity />}
+                color={iconColor[colorMode]}
+              />
+            </Link>
+          </Box>
+          <Box>
+            <Link href="https://www.jetbrains.com/teamcity/" passHref>
+              <IconButton
+                aria-label="Kotlin"
+                icon={<SiKotlin />}
                 color={iconColor[colorMode]}
               />
             </Link>

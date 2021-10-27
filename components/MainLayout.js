@@ -14,11 +14,12 @@ import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import DarkModeSwitch from "./darkModeSwitch";
+import NowPlaying from "./NowPlaying";
 
 const name = "Chika";
 export const siteTitle = "Chika";
 
-export default function Layout({ children, home }) {
+export default function MainLayout({ children, home }) {
   const { colorMode } = useColorMode();
   const bgColor = {
     light: "white",
@@ -137,7 +138,9 @@ export default function Layout({ children, home }) {
         px={[0, 4, 4]}
       >
         <main>{children}</main>
+        <NowPlaying />
       </Flex>
+
       <Flex>
         {!home && (
           <Link href="/">
