@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-import Layout from "./Layout";
+import MainLayout from "./MainLayout";
 
 export default function PostLayout({ children, frontMatter }) {
   const { colorMode } = useColorMode();
@@ -22,7 +22,7 @@ export default function PostLayout({ children, frontMatter }) {
   const router = useRouter();
   const slug = router.asPath.replace("/posts/", "");
   return (
-    <Layout>
+    <MainLayout>
       <Head>
         <title>{slug} - Blog - Chika</title>
       </Head>
@@ -69,6 +69,6 @@ export default function PostLayout({ children, frontMatter }) {
         </Flex>
         {children}
       </Stack>
-    </Layout>
+    </MainLayout>
   );
 }

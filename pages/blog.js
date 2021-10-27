@@ -9,7 +9,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 
-import Layout from "../components/Layout";
+import MainLayout from "../components/MainLayout";
 import BlogLayout from "../components/BlogLayout";
 import { getSortedPostsData } from "../lib/posts";
 
@@ -23,7 +23,7 @@ export default function Blog({ posts }) {
       <Head>
         <title>Chika&apos;s Blog</title>
       </Head>
-      <Layout>
+      <MainLayout>
         <Stack
           as="main"
           spacing={8}
@@ -47,7 +47,7 @@ export default function Blog({ posts }) {
             ))}
           </Flex>
         </Stack>
-      </Layout>
+      </MainLayout>
     </>
   );
 }

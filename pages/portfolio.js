@@ -1,5 +1,5 @@
 import { useColorMode } from "@chakra-ui/color-mode";
-import Layout from "../components/Layout";
+import MainLayout from "../components/MainLayout";
 import Head from "next/head";
 import Link from "next/link";
 import {
@@ -32,7 +32,7 @@ export default function Portfolio() {
   };
 
   return (
-    <Layout>
+    <MainLayout>
       <Head>
         <title>Chika</title>
       </Head>
@@ -94,6 +94,6 @@ export default function Portfolio() {
           </Box>
         </HStack>
       </Stack>
-    </Layout>
+    </MainLayout>
   );
 }
