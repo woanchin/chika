@@ -46,13 +46,13 @@ export default function Portfolio() {
           justifyContent="flex-start"
           alignItems="flex-start"
           maxWidth="800px"
-          mb={3}
+          mb={5}
         >
           <Heading mb={2}>Citi</Heading>
           <Heading size="md" mb={1}>
             2018 - Current
           </Heading>
-          <Text color={colorSecondary[colorMode]}>
+          <Text color={colorSecondary[colorMode]} mb={4}>
             Software Developer at Equities Team in Singapore. Created a new API
             capable of returning PDFs, allowing clients to fetch financial
             documents quickly. It has processed over 100 request in a day.
@@ -61,59 +61,69 @@ export default function Portfolio() {
             swagger interface and the logs are monitored with the ELK stack. The
             application is then deployed using Teamcity and UDeploy.
           </Text>
-          <Text color={colorTertiary[colorMode]}>
+          <Text color={colorTertiary[colorMode]} mb={4}>
             Picked up Kotlin on the job in order to build a microservice that
             enhances JSON objects flowing into other downstream Kotlin
             microservices. No Framework is involved, just a very simple MVC
             based model that gets the job done.
           </Text>
         </Flex>
-        <Heading size="lg">Technologies I&apos;ve used</Heading>
-        <HStack
-          flexDirection="row"
+        <Flex
+          flexDirection="column"
           justifyContent="flex-start"
           alignItems="flex-start"
-          p={[0, 2, 2, 0]}
           maxWidth="800px"
-          spacing="24px"
+          mb={5}
         >
-          <Box>
-            <Link href="https://www.scala-lang.org/" passHref>
-              <IconButton
-                aria-label="Scala"
-                icon={<SiScala />}
-                color={iconColor[colorMode]}
-              />
-            </Link>
-          </Box>
-          <Box>
-            <Link href="https://www.jetbrains.com/teamcity/" passHref>
-              <IconButton
-                aria-label="Couchbase"
-                icon={<SiCouchbase />}
-                color={iconColor[colorMode]}
-              />
-            </Link>
-          </Box>
-          <Box>
-            <Link href="https://www.jetbrains.com/teamcity/" passHref>
-              <IconButton
-                aria-label="Teamcity"
-                icon={<SiTeamcity />}
-                color={iconColor[colorMode]}
-              />
-            </Link>
-          </Box>
-          <Box>
-            <Link href="https://www.jetbrains.com/teamcity/" passHref>
-              <IconButton
-                aria-label="Kotlin"
-                icon={<SiKotlin />}
-                color={iconColor[colorMode]}
-              />
-            </Link>
-          </Box>
-        </HStack>
+          <Heading mb={2} size="lg">
+            Technologies I&apos;ve used
+          </Heading>
+          <HStack
+            flexDirection="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            maxWidth="800px"
+            spacing="24px"
+            mb={2}
+          >
+            <Box>
+              <Link href="https://www.scala-lang.org/" passHref>
+                <IconButton
+                  aria-label="Scala"
+                  icon={<SiScala />}
+                  color={iconColor[colorMode]}
+                />
+              </Link>
+            </Box>
+            <Box>
+              <Link href="https://www.jetbrains.com/teamcity/" passHref>
+                <IconButton
+                  aria-label="Couchbase"
+                  icon={<SiCouchbase />}
+                  color={iconColor[colorMode]}
+                />
+              </Link>
+            </Box>
+            <Box>
+              <Link href="https://www.jetbrains.com/teamcity/" passHref>
+                <IconButton
+                  aria-label="Teamcity"
+                  icon={<SiTeamcity />}
+                  color={iconColor[colorMode]}
+                />
+              </Link>
+            </Box>
+            <Box>
+              <Link href="https://www.jetbrains.com/teamcity/" passHref>
+                <IconButton
+                  aria-label="Kotlin"
+                  icon={<SiKotlin />}
+                  color={iconColor[colorMode]}
+                />
+              </Link>
+            </Box>
+          </HStack>
+        </Flex>
       </Stack>
     </MainLayout>
   );

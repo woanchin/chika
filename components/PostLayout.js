@@ -34,7 +34,6 @@ export default function PostLayout({ children, frontMatter }) {
         m="0 auto 4rem auto"
         maxWidth="800px"
         w="100%"
-        px={2}
       >
         <Flex
           flexDirection="column"

@@ -13,20 +13,26 @@ export default function NowPlaying() {
   const { data } = useSWR("/api/now-playing", fetcher);
 
   return (
-    <Flex flex-direction="row" mt={4} alignItems="center">
-      <Box mr={2}>
+    <Flex flex-direction="row" my={4} alignItems="center">
+      <Box mr={5}>
         <ChakraLink href="https://www.spotify.com/us/">
           <IconButton aria-label="Spotify" icon={<SiSpotify />} />
         </ChakraLink>
       </Box>
-      {data?.track.songUrl ? (
-        <Text>
-          Now playing <ChakraLink>{data.track.title}</ChakraLink>&ensp;-&ensp;
-        </Text>
-      ) : (
-        <Text>Not playing&ensp;</Text>
-      )}
-      <Text>{data?.track.artist ?? "Spotify"}</Text>
+      <Flex flex-direction="column">
+        {data?.track.songUrl ? (
+          <Box>
+            <Text>Now playing </Text>
+            <ChakraLink href={data.track.songUrl}>
+              <Text as="i">
+                {data.track.title}&ensp;-&ensp;{data?.track.artist}
+              </Text>
+            </ChakraLink>
+          </Box>
+        ) : (
+          <Text>Not playing Spotify</Text>
+        )}
+      </Flex>
     </Flex>
   );
 }

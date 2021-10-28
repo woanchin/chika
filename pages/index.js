@@ -43,7 +43,7 @@ export default function Home({ allPostsData }) {
           maxWidth="800px"
         >
           <div className={utilStyles.typewriter}>
-            <h1 className={utilStyles.typewriter}>Hello My name is Chika.</h1>
+            <h1 className={utilStyles.typewriter}>Hello! I am Chika.</h1>
           </div>
 
           <Text color={colorSecondary[colorMode]}>
@@ -56,7 +56,7 @@ export default function Home({ allPostsData }) {
           </Text>
         </Flex>
         <Flex flexDirection="column">
-          <Heading>Blog</Heading>
+          <Heading mb={1}>Blog</Heading>
           <List>
             {allPostsData.map(({ id, publishedAt, title }) => (
               <ListItem key={id}>

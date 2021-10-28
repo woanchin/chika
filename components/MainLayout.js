@@ -48,6 +48,7 @@ export default function MainLayout({ children, home }) {
     <Stack
       justifyContent="center"
       m="0 auto 4rem auto"
+      px={4}
       maxWidth="800px"
       w="100%"
     >
@@ -141,7 +142,7 @@ export default function MainLayout({ children, home }) {
         <NowPlaying />
       </Flex>
 
-      <Flex>
+      <Flex px={[0, 4, 4]}>
         {!home && (
           <Link href="/">
             <ChakraLink color={color[colorMode]}>← Back to home</ChakraLink>
