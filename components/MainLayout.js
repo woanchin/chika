@@ -151,7 +151,6 @@ export default function MainLayout({ children, home }) {
           initial="hidden"
           animate="enter"
           exit="exit"
-          variants={variants}
           transition={{ type: "linear" }}
           className="
                     flex flex-col items-start w-full pt-10
