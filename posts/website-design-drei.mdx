@@ -1,0 +1,286 @@
+---
+title: "How I made this website (Part 3)"
+publishedAt: "2021-12-09"
+summary: "Some details about this blog part 3"
+---
+
+# Part 3
+
+Oooof! I haven't updated in a while! No reason in particular, I just got distracted and I felt like a lot of things were coming onto me at once so I just simply ran out of mental energy. I found some small inspiration again and decided to add some more bells and whistles I promised last [post](/posts/website-design-2).
+
+Added Spotify! Yay. I mostly listened to music on Youtube. That is after outgrowing my poor unethical student behavior when I download mp3 _legally_ on gendou and 4shared. And then I saw many next js portfolios with this Spotify widget looking thingy that automatically shows you what the blogger is listening to. And I thought I had to have it.
+
+So very quickly here's how I got the spotify going.
+
+Requisites:
+
+1. You need a spotify dev account. Get one [here](https://developer.spotify.com/)
+2. You need
+   -SPOTIFY_CLIENT_ID
+   -SPOTIFY_CLIENT_SECRET
+   -SPOTIFY_REFRESH_TOKEN
+
+##Spotify
+Go to the dashboard. Create an app. Fill out your app name and details. After that is done, in "EDIT SETTINGS" you want to list http://localhost:3000 as your redirect URIs.
+
+Copy the CLIENT ID and CLIENT SECRET and keep it handy somewhere. Best to open a code editor page for this. Since you might be copying and pasting a lot of times.
+
+Next we need to get a spotify refresh token. Here's what you need to do.
+
+1. Open a browser. Put in this link:
+
+https://accounts.spotify.com/authorize?client_id=<YOUR_CLIENT_ID>&response_type=code&redirect_uri=http
+%3A%2F%2Flocalhost:3000&scope=user-read-currently-playing%20
+user-top-read
+
+2. After logging in and authorizing, spotify will redirect you back to https://localhost:3000/ because that's what we specified in the "EDIT SETTINGS". We're much more interested in what comes after this url. It should look like /?code=blahblah
+
+3. To get the access token, first you need a Base 64 encoded string of your Client Id and Client secret. Use this [website](https://www.base64encode.org/) and put in
+
+```
+YOUR_CLIENT_ID:YOUR_CLIENT_SECRET
+```
+
+Note the colon in the middle. Press encode and again copy the result into somewhere handy.
+
+4. Open up git-bash or if you already have curl supported... copy the below command and edit accordingly.
+
+curl -H "Authorization: Basic <YOUR_CLIENT_ID:YOUR_CLIENT_SECRET THAT IS BASE 64 ENCODED>" -d grant_type=authorization_code -d code=<THE CODE YOU GOT IN STEP 2> -d redirect_uri=http%3A%2F%2Flocalhost:3000 https://accounts.spotify.com/api/token
+
+This should spit out a few things.
+
+1. access token 2) refresh token 3) token_type 4) expiry 5) scope.
+
+5) Copy the refresh token.
+
+##Next js / vercel
+at the root level of your project. create a .env.local file and just a note, dont check this into your github? unless you want people to know your clientid clientsecrets hehe.
+
+Paste this into your .env.local file
+SPOTIFY_CLIENT_ID=<YOUR_CLIENT_ID>
+SPOTIFY_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
+SPOTIFY_REFRESH_TOKEN=<YOUR_REFRESH_TOKEN>
+
+If you are using vercel to deploy. You can go to your vercel project dashboard and under 'Settings', locate 'Environment Variables' and put in the same information.
+
+##Coding time!
+This is like working with any API out there. To get familiar with Spotify API and what you can present, you can check out this [link](https://developer.spotify.com/documentation/web-api/reference/#/).
+
+Before grabbing any information from spotify, you need to get an access token first. This is a bit simpler than what we did from before. Here's my code for reference!
+
+```js
+// lib/spotify.js
+
+async function getAccessToken() {
+  const params = { grant_type: "refresh_token", refresh_token: refreshToken };
+  const searchParams = new URLSearchParams(params);
+  const response = await fetch(TOKEN_ENDPOINT, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${basic}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: searchParams.toString(),
+  });
+  const jsonReply = await response.json();
+  return jsonReply;
+}
+```
+
+In the jsonReply object, you should have an access_token field. Use the result and run another api call to Spotify to grab song information this time round.
+
+```js
+// lib/spotify.js
+const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
+
+export async function getNowPlaying() {
+  const accessToken = await getAccessToken();
+  return fetch(NOW_PLAYING_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${accessToken.access_token}`,
+    },
+  });
+}
+```
+
+With what we have so far, we have a json displaying our current track, like below
+
+```json
+{
+    "timestamp": 1639064555172,
+    "context": {
+        "external_urls": {
+            "spotify": "https://open.spotify.com/playlist/2DMkrKaJJ05HKnh9WmlaFb"
+        },
+        "href": "https://api.spotify.com/v1/playlists/2DMkrKaJJ05HKnh9WmlaFb",
+        "type": "playlist",
+        "uri": "spotify:playlist:2DMkrKaJJ05HKnh9WmlaFb"
+    },
+    "progress_ms": 1737,
+    "item": {
+        "album": {
+            "album_type": "album",
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/3zmfs9cQwzJl575W1ZYXeT"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/3zmfs9cQwzJl575W1ZYXeT",
+                    "id": "3zmfs9cQwzJl575W1ZYXeT",
+                    "name": "Men I Trust",
+                    "type": "artist",
+                    "uri": "spotify:artist:3zmfs9cQwzJl575W1ZYXeT"
+                }
+            ],
+            "available_markets": [
+                "AD",
+                "AE",
+                "AG",
+                "AL",
+                .
+                .
+                .
+            ],
+            "external_urls": {
+                "spotify": "https://open.spotify.com/album/7FkJxlcljM6Ix0pC2JSNOE"
+            },
+            "href": "https://api.spotify.com/v1/albums/7FkJxlcljM6Ix0pC2JSNOE",
+            "id": "7FkJxlcljM6Ix0pC2JSNOE",
+            "images": [
+                {
+                    "height": 640,
+                    "url": "https://i.scdn.co/image/ab67616d0000b273caa2063da9054f7b4e83f353",
+                    "width": 640
+                },
+                {
+                    "height": 300,
+                    "url": "https://i.scdn.co/image/ab67616d00001e02caa2063da9054f7b4e83f353",
+                    "width": 300
+                },
+                {
+                    "height": 64,
+                    "url": "https://i.scdn.co/image/ab67616d00004851caa2063da9054f7b4e83f353",
+                    "width": 64
+                }
+            ],
+            "name": "Untourable Album",
+            "release_date": "2021-08-25",
+            "release_date_precision": "day",
+            "total_tracks": 13,
+            "type": "album",
+            "uri": "spotify:album:7FkJxlcljM6Ix0pC2JSNOE"
+        },
+        "artists": [
+            {
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/3zmfs9cQwzJl575W1ZYXeT"
+                },
+                "href": "https://api.spotify.com/v1/artists/3zmfs9cQwzJl575W1ZYXeT",
+                "id": "3zmfs9cQwzJl575W1ZYXeT",
+                "name": "Men I Trust",
+                "type": "artist",
+                "uri": "spotify:artist:3zmfs9cQwzJl575W1ZYXeT"
+            }
+        ],
+        "available_markets": [
+            "AD",
+            "AE",
+            "AG",
+            "AL",
+            .
+            .
+            .
+        ],
+        "disc_number": 1,
+        "duration_ms": 188301,
+        "explicit": false,
+        "external_ids": {
+            "isrc": "TCAFR2123374"
+        },
+        "external_urls": {
+            "spotify": "https://open.spotify.com/track/4JYJU761kWJEK91hyug33F"
+        },
+        "href": "https://api.spotify.com/v1/tracks/4JYJU761kWJEK91hyug33F",
+        "id": "4JYJU761kWJEK91hyug33F",
+        "is_local": false,
+        "name": "Tree Among Shrubs",
+        "popularity": 58,
+        "preview_url": "https://p.scdn.co/mp3-preview/66a774a384788c435da79866449462781d77ce9f?cid=1bf0758b813d4aa18b13f858a41ae8c6",
+        "track_number": 5,
+        "type": "track",
+        "uri": "spotify:track:4JYJU761kWJEK91hyug33F"
+    },
+    "currently_playing_type": "track",
+    "actions": {
+        "disallows": {
+            "resuming": true,
+            "skipping_prev": true
+        }
+    },
+    "is_playing": true
+}
+```
+
+Phew.. really long json but it has everything we need. _Shout out to Men I Trust. their songs are great. would highly recommend._ In particular, the song title and the artist. This is what the code below is doing, grabbing only the essentials. Note: below file is a separate file from the one before. We need to separate the two. Helps with the later part on SWR!
+
+```js
+// /api/now-playing.js
+import { getNowPlaying } from "../../lib/spotify";
+
+export default async (_, res) => {
+  const response = await getNowPlaying();
+  const items = await response.json();
+  const nowPlaying = items.item.artists.find((e) => true);
+  const image = items.item.album.images.find((e) => true);
+
+  const track = {
+    artist: nowPlaying.name,
+    songUrl: items.item.external_urls.spotify,
+    imageUrl: image.url,
+    title: items.item.name,
+  };
+
+  return res.status(200).json({ track });
+};
+```
+
+The next part we need is fetching this information real time. Or whenever the page refreshes. The idea is that we don't have the 'currently-playing' song to be outdated! :) To do that, I use vercel's SWR function. It's like magic.
+
+Pardon the messy code, I'm still in the midst of refactoring and figuring out how to organize.
+
+```js
+//create a file like this
+// /lib/fetcher.js
+
+export default async (...args) => {
+  const res = await fetch(...args);
+  return res.json();
+};
+```
+
+```js
+// /components/NowPlaying.js
+export default function NowPlaying() {
+  // /api/now-playing is used here because my file path is /api/now-playing.js and fetcher is imported from fetcher.js
+  const { data } = useSWR("/api/now-playing", fetcher);
+
+  //if my spotify is running, it will show what's playing otherwise. it will be defaulted to not playing mode.
+
+  return (
+        {data?.track.songUrl ? (
+          <Box>
+            <Text>Now playing </Text>
+            <ChakraLink href={data.track.songUrl}>
+              <Text as="i">
+                {data.track.title}&ensp;-&ensp;{data?.track.artist}
+              </Text>
+            </ChakraLink>
+          </Box>
+        ) : (
+          <Text>Not playing Spotify</Text>
+        )}
+  );
+}
+```
+
+Ok that was superrrr long. hahaha, brb running out of mental juice again. But I hope this was useful. I realise my code is displayed crappily. Maybe in the next post I will look at improve this.

@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { customTheme } from "../styles/theme";
 import { Global, css } from "@emotion/react";
+import { AnimatePresence } from "framer-motion";
 
 const GlobalStyles = ({ children }) => {
   const { colorMode } = useColorMode();
@@ -48,7 +49,13 @@ function MyApp({ Component, pageProps }) {
         }}
       >
         <GlobalStyles>
-          <Component {...pageProps} />
+          <AnimatePresence
+            exitBeforeEnter
+            initial={false}
+            onExitComplete={() => window.scrollTo(0, 0)}
+          >
+            <Component {...pageProps} />
+          </AnimatePresence>
         </GlobalStyles>
       </ColorModeProvider>
     </ChakraProvider>
