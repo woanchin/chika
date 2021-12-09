@@ -159,7 +159,7 @@ export default function MainLayout({ children, home }) {
                     pt-24 h-full
                 "
         >
-          <main>{children}</main>
+          {children}
         </motion.main>
         <NowPlaying />
       </Flex>
