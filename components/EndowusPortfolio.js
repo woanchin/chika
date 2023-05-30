@@ -28,9 +28,9 @@ const EndowusPortfolio = ({colorMode, colorSecondary, colorTertiary, iconColor})
           <Text color={colorSecondary[colorMode]} mb={4}>
             I had the chance to work in 2 teams in Endouws. In the onboarding team, I had a chance
             to be full-stack and worked on some Typescript/React frontend project as well as supporting
-            a scala play backend project. I enabled the client-facing service to recognise users' 
+            a scala play backend project. I enabled the client-facing service to recognise users&apos; 
             own deposits to allow them to complete the onboarding process by using Kafka producer/subscribers.
-            At the front-end side, I integrated Google's Recaptcha library into the company's React app and succsesfully reduced bot signups at our entry points and Webflow projects. 
+            At the front-end side, I integrated Google&apos; Recaptcha library into the company&apos; React app and succsesfully reduced bot signups at our entry points and Webflow projects. 
           </Text>
           <Text color={colorTertiary[colorMode]} mb={4}>
           For a period of time, I was rotated to the Trading team which manages the daily order transactions to fundhouses. Using Play, Akka Streams, I developed a process that allows my service API to digest
